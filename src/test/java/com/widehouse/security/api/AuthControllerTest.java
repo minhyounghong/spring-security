@@ -1,4 +1,4 @@
-package com.manhwakyung.security.api;
+package com.widehouse.security.api;
 
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.httpBasic;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;

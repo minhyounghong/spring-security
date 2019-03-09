@@ -1,4 +1,4 @@
-package com.manhwakyung.security.auth;
+package com.widehouse.security.auth;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;

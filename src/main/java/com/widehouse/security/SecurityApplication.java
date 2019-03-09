@@ -1,11 +1,10 @@
-package com.manhwakyung.security;
+package com.widehouse.security;
 
-import com.manhwakyung.security.config.AppProperties;
+import com.widehouse.security.config.AppProperties;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
-import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
 
 @SpringBootApplication
