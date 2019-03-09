@@ -1,0 +1,17 @@
+#spring:
+#  security:
+#    user:
+#      name: user
+#      password: test
+#security:
+#  oauth2:
+#    client:
+#      client-id: foo
+#      client-secret: bar
+app:
+  auth:
+    tokenSecret: 926D96C90030DD58429D2751AC1BDBBC
+    tokenExpirationMsec: 864000000
+    oauth2:
+      authorizedRedirectUris:
+        - http://localhost:3000/oauth2/redirect
