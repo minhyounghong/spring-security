@@ -11,7 +11,7 @@ public class HomeController {
         return "";
     }
 
-    @GetMapping("/users")
+    @GetMapping("/hello")
     public String listUsers() {
         return "users";
     }
