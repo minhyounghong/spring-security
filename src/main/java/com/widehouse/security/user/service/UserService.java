@@ -32,9 +32,17 @@ public class UserService implements UserDetailsService {
         return userRepository.findAll();
     }
 
+    public User getUserById(Integer id) {
+        return userRepository.findById(id).get();
+    }
+
+    public User getUserByEmail(String email) {
+        return userRepository.findByEmail(email).get();
+    }
 
     private List<SimpleGrantedAuthority> getAuthority() {
         return Arrays.asList(new SimpleGrantedAuthority("ROLE_USER"));
     }
+
 
 }
