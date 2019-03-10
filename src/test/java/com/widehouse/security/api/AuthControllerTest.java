@@ -15,6 +15,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 
@@ -32,7 +33,7 @@ class AuthControllerTest {
                 .andExpect(status().isOk());
     }
 
-    @Sql("classpath:data.sql")
+    @Sql("classpath:data/user-data.sql")
     @Test
     void getAuthToken_WithValidPassword_ThenGetToken() throws Exception {
         MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
