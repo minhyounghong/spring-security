@@ -13,6 +13,13 @@ spring:
       ddl-auto: create-drop
   datasource:
     url: jdbc:h2:mem:testdb
+security:
+  oauth2:
+    authorization:
+      token-key-access: isAuthenticated()
+    resource:
+      jwt:
+        key-uri: http://localhost:8080/oauth/token_key
 logging.level:
   org.hibernate:
     type.descriptor.sql.BasicBinder : TRACE
