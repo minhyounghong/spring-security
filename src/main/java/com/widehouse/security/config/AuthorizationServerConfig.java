@@ -12,6 +12,8 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.E
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.InMemoryTokenStore;
+import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
+import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
 
 @Configuration
 @EnableAuthorizationServer
@@ -24,8 +26,11 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 
     @Override
     public void configure(final AuthorizationServerEndpointsConfigurer endpoints) {
-        endpoints.tokenStore(tokenStore())
-                .authenticationManager(authenticationManager);
+        endpoints
+                .authenticationManager(authenticationManager)
+                .tokenStore(tokenStore())
+                .accessTokenConverter(accessTokenConverter());
+
     }
 
     @Override
@@ -41,22 +46,13 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 
     @Bean
     public TokenStore tokenStore() {
-        return new InMemoryTokenStore();
+        return new JwtTokenStore(accessTokenConverter());
     }
-//
-//
-//
-//    @Bean
-//    public TokenStore tokenStore() {
-//        return new JwtTokenStore(accessTokenConverter());
-//    }
-//
-//    @Bean
-//    public JwtAccessTokenConverter accessTokenConverter() {
-//        JwtAccessTokenConverter converter = new JwtAccessTokenConverter();
-//        converter.setSigningKey("abcd");
-//        return converter;
-//    }
+
+    @Bean
+    public JwtAccessTokenConverter accessTokenConverter() {
+        return new JwtAccessTokenConverter();
+    }
 //
 //    @Bean
 //    @Primary
@@ -68,31 +64,6 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 //        return defaultTokenServices;
 //    }
 
-//    @Autowired
-//    private AuthenticationManager authenticationManager;
-//
-//    @Autowired
-//    private AppProperties appProperties;
-//
-//    @Override
-//    public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
-//        endpoints.tokenStore(tokenStore())
-//                .accessTokenConverter(accessTokenConverter())
-//                .authenticationManager(authenticationManager);
-//    }
-//
-//    @Bean
-//    public TokenStore tokenStore() {
-//        return new JwtTokenStore(accessTokenConverter());
-//    }
-//
-//    @Bean
-//    public JwtAccessTokenConverter accessTokenConverter() {
-//        JwtAccessTokenConverter converter = new JwtAccessTokenConverter();
-//        converter.setSigningKey(appProperties.getAuth().getTokenSecret());
-//        return converter;
-//    }
-//
 //    @Bean
 //    @Primary
 //    public DefaultTokenServices tokenServices() {

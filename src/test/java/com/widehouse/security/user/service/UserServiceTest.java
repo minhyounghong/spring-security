@@ -2,7 +2,7 @@ package com.widehouse.security.user.service;
 
 import static org.assertj.core.api.BDDAssertions.then;
 import static org.assertj.core.api.BDDAssertions.thenThrownBy;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.BDDMockito.given;
 
@@ -58,7 +58,8 @@ class UserServiceTest {
     @Test
     void listAllUsers() {
         given(userRepository.findAll())
-                .willReturn(Arrays.asList(new User(1, "foo@bar.com", "foo", "1234"),
+                .willReturn(Arrays.asList(
+                        new User(1, "foo@bar.com", "foo", "1234"),
                         new User(2, "foo2@bar.com", "foo2", "5678")));
         // when
         List<User> users = service.listAllUsers();
@@ -66,4 +67,32 @@ class UserServiceTest {
         then(users).extracting("email")
                 .contains("foo@bar.com", "foo2@bar.com");
     }
+
+    @Test
+    void getUserById_WithExistId_ThenReturnUser() {
+        // given
+        given(userRepository.findById(anyInt()))
+                .willReturn(Optional.of(new User(1, "foo@bar.com", "foo", "1234")));
+        // when
+        User user = service.getUserById(1);
+        // then
+        then(user)
+                .hasFieldOrPropertyWithValue("id", 1)
+                .hasFieldOrPropertyWithValue("email", "foo@bar.com");
+    }
+
+    @Test
+    void getUserByEmail_WithExistEmail_ThenReturnUser() {
+        // given
+        given(userRepository.findByEmail(anyString()))
+                .willReturn(Optional.of(new User(1, "foo@bar.com", "foo", "1234")));
+        // when
+        User user = service.getUserByEmail("foo@bar.com");
+        // then
+        then(user)
+                .hasFieldOrPropertyWithValue("id", 1)
+                .hasFieldOrPropertyWithValue("email", "foo@bar.com");
+    }
+
+
 }
